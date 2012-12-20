@@ -320,7 +320,11 @@ ab._Deferred = when.defer;
 //ab._Deferred = jQuery.Deferred;
 
 ab._construct = function (url, protocols) {
-   if ("WebSocket" in window) {
+   if(eio){
+      console.log('Autobahn will use engine.io with options: ', url);
+      return eio(url);
+   }
+   else if ("WebSocket" in window) {
       // Chrome, MSIE, newer Firefox
       return new WebSocket(url, protocols);
    } else if ("MozWebSocket" in window) {
